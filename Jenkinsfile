@@ -9,7 +9,11 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/AbdulBhashith/jenkinscicd.git'
             }
         }
-
+        stage('version') {
+            steps {
+                sh 'docker --version'
+            }
+        }
         stage('Build and push image') {
             steps {
                 script {
