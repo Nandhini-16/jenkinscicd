@@ -1,32 +1,33 @@
 pipeline {
-    agent any
-    tools {
-        dockerTool "docker"
+  agent any
+  tools {
+      dockerTool "docker"
+  }
+  stages {
+    stage('git clone') {
+      steps {
+         git branch: 'main', url: 'https://github.com/AbdulBhashith/jenkinsnodeflowdock'
+            }
+        }
+    stage('Build') {
+      steps {
+        sh 'docker build -t abdulbhashiths/nodejenkins .'
+      }
     }
-    stages {
-        stage('Clone repository') {
-            steps {
-                git branch: 'main', url: 'https://github.com/AbdulBhashith/jenkinscicd.git'
-            }
-        }
-        stage('version') {
-            steps {
-                sh 'docker --version'
-            }
-        }
-        stage('Build and push image') {
-            steps {
-                script {
-                    def dockerImage = docker.build('abulbhashiths/nodejenkins')
-
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                            dockerImage.push("${env.BUILD_NUMBER}")
-                            dockerImage.push('latest')
-                        }
-                    }
-                }
-            }
-        }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
     }
+    stage('Push') {
+      steps {
+        sh 'docker push abdulbhashiths/nodejenkins'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
 }
