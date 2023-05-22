@@ -14,7 +14,7 @@ pipeline {
         sh 'docker build -t abdulbhashiths/nodejenkins .'
       }
     }
-    stages {
+    stage('docker version') {
       steps {
         sh 'docker --version'
       }
