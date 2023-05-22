@@ -14,6 +14,11 @@ pipeline {
         sh 'docker --version'
       }
     }
+    stage('docker info') {
+      steps {
+        sh 'dcoker info'
+      }
+    }
     stage('Build') {
       steps {
         sh 'docker build -t abdulbhashiths/nodejenkins .'
