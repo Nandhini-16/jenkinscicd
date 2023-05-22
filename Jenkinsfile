@@ -9,14 +9,14 @@ pipeline {
          git branch: 'main', url: 'https://github.com/AbdulBhashith/jenkinsnodeflowdock'
             }
         }
-    stage('Build') {
-      steps {
-        sh 'docker build -t abdulbhashiths/nodejenkins .'
-      }
-    }
     stage('docker version') {
       steps {
         sh 'docker --version'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker build -t abdulbhashiths/nodejenkins .'
       }
     }
     stage('Login') {
