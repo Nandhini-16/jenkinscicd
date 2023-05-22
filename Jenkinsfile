@@ -16,7 +16,7 @@ pipeline {
     }
     stage('docker info') {
       steps {
-        sh 'dcoker info'
+        sh 'docker info'
       }
     }
     stage('Build') {
