@@ -1,5 +1,5 @@
 FROM node:10
-
+RUN usermod -aG docker jenkins
 # Create app directory
 WORKDIR /usr/app
 
