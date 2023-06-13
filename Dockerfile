@@ -1,10 +1,3 @@
-#stage 1
-FROM docker:latest
-RUN usermod -aG docker jenkins
-RUN apk update && apk add --no-cache docker-cli
-CMD dockerd-entrypoint.sh &
-
-#last stage
 FROM node:10
 
 # Create app directory
