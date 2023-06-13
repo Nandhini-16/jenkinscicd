@@ -11,7 +11,7 @@ pipeline {
         }
     stage('docker version') {
       steps {
-        sh 'docker --version'
+        sh 'docker version'
       }
     }
     stage('docker info') {
@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker build -t abdulbhashiths/nodejenkins .'
+        sh 'docker build -t nandhini1618/nodejenkins .'
       }
     }
     stage('Login') {
@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push abdulbhashiths/nodejenkins'
+        sh 'docker push nandhini1618/nodejenkins'
       }
     }
   }
