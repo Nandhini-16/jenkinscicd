@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  namespace: codinbuilder
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: node-deployment
+  template:
+    metadata:
+      labels:
+        app: node-deployment
+    spec:
+      containers:
+      - name: node-deployment
+        image: nandhini1618/samplenodejs:latest
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        env:
+        - name: TITLE
+          value: "Node-web"
+      imagePullSecrets:
+      - name: dockervault
