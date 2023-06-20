@@ -1,19 +1,25 @@
-FROM node:10
+# Use an official Node.js runtime as the base image
+FROM node:14
 
-# Create app directory
-WORKDIR /usr/app
+# Set the working directory inside the container
+WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Copy package.json and package-lock.json (if available) to the working directory
 COPY package*.json ./
 
+# Install the dependencies
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
-# Bundle app source
+# Copy the rest of the application source code to the working directory
 COPY . .
 
-EXPOSE 3000
-CMD [ "node", "server.js" ]
+# Specify the internal and external ports
+ENV INTERNAL_PORT=3000
+ENV EXTERNAL_PORT=8080
+
+# Expose the internal port
+EXPOSE $INTERNAL_PORT
+
+# Start the Node.js application
+CMD ["node", "index.js"]
+
